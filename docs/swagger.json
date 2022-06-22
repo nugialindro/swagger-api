@@ -1,0 +1,258 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Nugs App",
+    "version": "1.0.0",
+    "description": "Project X"
+  },
+  "tags": [
+    {
+      "name": "Article",
+      "description": "Article resources"
+    }
+  ],
+  "paths": {
+    "/articles": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "List all available articles",
+        "description": "Listof all article",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "this is example of article title"
+                  },
+                  "body": {
+                    "type": "string",
+                    "example": "this is example of article body"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Add new Article",
+        "description": "Create New",
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Article Object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Fill with article title"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Fill with article body"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New article created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 2
+                },
+                "title": {
+                  "type": "string",
+                  "example": "This new article"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Lorem ipsum"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Create article failed",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed create new article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{articleId}": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Find article by ID",
+        "description": "Find an article by articleId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "description": "Id of article",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit amet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Delete Article By Id",
+        "description": "Delete article by ID",
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "description": "article id required",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article deleted"
+          }
+        }
+      }
+    },
+    "/articles/edit/{articleId}": {
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Update article by ID",
+        "description": "update an article by article id",
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "required": true,
+            "description": "article id required",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "an object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "lorem"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "ipsum"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article updated"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}
